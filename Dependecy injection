@@ -1,0 +1,6 @@
+Using other class, variable component is called Dependecy injection
+
+There are three type of DI
+1. using constructor
+2. using setter
+3. uisng interface
