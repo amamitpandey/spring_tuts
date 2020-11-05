@@ -1,0 +1,19 @@
+
+# add in pom.xml
+
+<!--for return data type in xml formate-->
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
+ 
+ # in postman use accept type
+ accept : application/xml
+ 
+ # use normal controller 
+ 
+     // get all user list
+    @GetMapping("/getAlluser")
+    public List<userModel> getAllUser() {
+        return repo.getUserList();
+    }
