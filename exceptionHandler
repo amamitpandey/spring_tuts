@@ -127,7 +127,7 @@ public class customizeExceptionHandler extends ResponseEntityExceptionHandler {
     }
     
     
-#  using this we return path in header
+# using this we return path in header
         URI uriLocation = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
