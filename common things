@@ -2,3 +2,5 @@
 # dispatcherServlet  is responsible  for search controller and revert back
 # dow is equivalent as repo like interaction with data base
 # for define any type data type :  <T> T
+# get data type : System.out.println(customUid.getClass());
+# for checking String cond : if (customUid.equals("abcd1234")) {}
