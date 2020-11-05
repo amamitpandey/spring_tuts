@@ -114,3 +114,31 @@ public class customizeExceptionHandler extends ResponseEntityExceptionHandler {
     }
 }
 
+# authentication using header like login
+    @GetMapping("/authUser")
+    public String authUser(@RequestHeader String customUid, @RequestHeader String emailId) {
+
+        System.out.println(customUid.getClass()); // get data type
+        if (customUid.equals("abcd1234")) {
+            return "Authenticate successfully : true";
+        } else {
+            return "Authenticate Unsuccessfully";
+        }
+    }
+    
+    
+#  using this we return path in header
+        URI uriLocation = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(addedUser.getId())
+                .toUri();
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setLocation(uriLocation);
+        responseHeaders.set("MyResponseHeader", "MyValue");
+        // using model based class return multi type JSON
+        ResponseModel responseBody = new ResponseModel("success", "Registered successfully", addedUser);
+
+        return new ResponseEntity(responseBody, responseHeaders, HttpStatus.CREATED);
+
