@@ -1,0 +1,112 @@
+Return Filtered response
+
+# for static filter
+# in controller 
+
+    @GetMapping("/getStaticFilterData")
+    public StaticFilterBean getStaticFilterData(){
+        StaticFilterBean staticFilterBean = new StaticFilterBean(1,"test1","password1");
+        return staticFilterBean;
+    }
+
+# in bean
+
+public class StaticFilterBean {
+
+    private int id;
+    private String name;
+    @JsonIgnore // menioned for ignore data
+    private String password;
+
+    public StaticFilterBean(int id, String name, String password) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+}
+
+# for dynamic filter control by controller
+
+in controller
+
+    @GetMapping("/getDynamicFilterData")
+    public MappingJacksonValue getDynamicFilterData(){
+        DynamicFilterBean dynamicFilterBean = new DynamicFilterBean(1,"test1","password1");
+        SimpleBeanPropertyFilter simpleBeanPropertyFilter = SimpleBeanPropertyFilter
+                .filterOutAllExcept("id","name"); // hidding password
+        // DynamicFilterId should same as @JsonFilter("DynamicFilterId") in DynamicFilterId
+        FilterProvider filters = new SimpleFilterProvider().addFilter("DynamicFilterId",simpleBeanPropertyFilter);
+        MappingJacksonValue value = new MappingJacksonValue(dynamicFilterBean);
+        value.setFilters(filters);
+        return value;
+    }
+    
+in bean
+
+package com.examplein28first.first.users;
+
+
+import com.fasterxml.jackson.annotation.JsonFilter;
+
+
+@JsonFilter("DynamicFilterId") // same as declare in controller
+public class DynamicFilterBean {
+    private int id;
+    private String name;
+    private String password;
+
+    public DynamicFilterBean(int id, String name, String password) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+}
+
