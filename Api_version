@@ -1,0 +1,33 @@
+## Api version control using api
+Like v1/getUser, v2/getUser
+
+# Api version control using params
+// its pollute uri, cache possible
+
+# prefered Api version control using header
+// its complicated for client side
+// not possible using browser
+
+# in controller
+@RestController
+@RequestMapping("/versionWise")
+public class FilterVersionApi {
+
+    // http://localhost:8080/versionWise/getUser?version=1
+    @GetMapping(value = "/getUser", params = "version=1") // auto catch params
+    public String getUser(){
+        return " This is Version 1 user " ;
+    }
+
+    // http://localhost:8080/versionWise/getUser?version=2
+    @GetMapping(value = "/getUser", params = "version=2") // auto catch params
+    public String getUserVar2(){
+        return " This is Version 2 user " ;
+    }
+
+    // http://localhost:8080/versionWise/getUserByHeaders?version=1 // auto catch headers
+    @GetMapping(value = "/getUser", headers = "version=2")
+    public String getUserVarByHeaders(){
+        return " This is getUserVarByHeaders" ;
+    }
+}
