@@ -1,0 +1,237 @@
+## using of h2 database crud example
+
+## connecting h2 db
+# only for version 2.3 +
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.jpa.show-sql = true
+spring.h2.console.enabled = true
+
+## in pom.xml add dependency
+
+<dependency>
+	<groupId>com.h2database</groupId>
+	<artifactId>h2</artifactId>
+	<scope>runtime</scope>
+</dependency>
+
+# In chrome
+http://localhost:8080/h2-console
+Select -> jdbc:h2:mem:testdb -> connect 
+
+# add manually data in db
+In resources, create a file data.sql
+
+insert into user_table values(101,'amit', 'password1');
+insert into user_table values(102,'amit1', 'password2');
+insert into user_table values(103,'amit3', 'password3');
+
+insert into post_table values(1001,'Post discription : first', 101);
+insert into post_table values(1002,'Post discription : second', 101);
+
+# in controller
+
+@RestController
+public class ApiController {
+
+    @Autowired
+    UserRepo userRepo;
+    @Autowired
+    PostRepo postRepo;
+
+    @PostMapping("/createUser")
+    public UserBean createUser(@RequestBody UserBean userbean) {
+        return userRepo.save(userbean);
+    }
+
+    @PutMapping("/UpdateUser")
+    public Object UpdateUser(@RequestBody UserBean userbean) {
+        Optional<UserBean> user = userRepo.findById(userbean.getId());
+        if (user.isPresent()) {
+            UserBean UpdateUser = userbean;
+            UpdateUser.setName(userbean.getName());
+            UpdateUser.setPassword(userbean.getPassword());
+            userRepo.save(UpdateUser);
+            return UpdateUser;
+        } else {
+            return "User not found";
+        }
+    }
+
+    @GetMapping("/getUserAll")
+    public List<UserBean> getUser() {
+        return userRepo.findAll();
+    }
+
+    @GetMapping("/getUserByid/{id}")
+    public Object getUser(@PathVariable int id) {
+        Optional<UserBean> user = userRepo.findById(id);
+        if (!user.isPresent()) {
+            return "User not found";
+        }
+        return user;
+    }
+
+    @DeleteMapping("/deleteUserByid/{id}")
+    public Object deleteUser(@PathVariable int id) {
+        Optional<UserBean> user = userRepo.findById(id);
+        if (user.isPresent()) {
+            userRepo.deleteById(id);
+            return "User deleted";
+        } else {
+            return "User not found";
+        }
+    }
+
+    @GetMapping("/getPostAll")
+    public List<PostBean> getPostAll() {
+        return postRepo.findAll();
+    }
+
+    @GetMapping("/getPostByid/{id}")
+    public List<PostBean> getPostByid(@PathVariable int id) {
+        Optional<UserBean> user = userRepo.findById(id);
+        if (user.isPresent()) {
+            return user.get().getPost(); // getting post array exit in user data
+        }
+        return null;
+    }
+
+    @PostMapping("/savePosts/{id}")
+    public PostBean savePosts(@RequestBody PostBean postBean, @PathVariable int id) {
+        Optional<UserBean> user = userRepo.findById(id);
+        if (user.isPresent()) {
+            UserBean userBean = user.get(); // getting user credential like foreign key
+            postBean.setUser(userBean);
+            postRepo.save(postBean);
+            return postBean;
+        }
+        return null;
+    }
+}
+
+# in userRepo
+
+@Repository
+public interface UserRepo extends JpaRepository<UserBean,Integer> {
+}
+
+# in postRepo
+@Repository
+public interface PostRepo extends JpaRepository<PostBean, Integer> {
+}
+
+# in userBean
+
+@Entity
+@Table(name="user_table")
+public class UserBean {
+
+    @Id
+    @GeneratedValue // auto generate value
+    private int id;
+    private String name;
+    private String password;
+
+
+
+    @OneToMany(mappedBy = "user") // hook to user using foreign key, user_id auto generate using repo
+    private List<PostBean> post;
+
+    public List<PostBean> getPost() {
+        return post;
+    }
+
+    public void setPost(List<PostBean> post) {
+        this.post = post;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "UserBean{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
+}
+
+# in postBean
+
+@Entity
+@Table(name = "post_table")
+public class PostBean {
+    @Id
+    @GeneratedValue
+    private int id;
+    private String description;
+
+    // auto fetch the data using user info, don'' need any filter
+    @ManyToOne(fetch = FetchType.LAZY) // to stop recursive, it's fetch user and user fetch post so on
+    @JsonIgnore // to stop recursive
+    private UserBean user;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public UserBean getUser() {
+        return user;
+    }
+
+    public void setUser(UserBean user) {
+        this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "PostBean{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", user=" + user +
+                '}';
+    }
+}
+
+
+
+
+
+ 
+
+
