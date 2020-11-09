@@ -23,3 +23,18 @@
 # using model based class return multi type JSON
         ResponseModel responseBody = new ResponseModel("success", "Registered successfully", addedUser);
         return new ResponseEntity(responseBody, responseHeaders, HttpStatus.CREATED);
+        
+# bean has in default constructor with zero argument, don’t need to write construct in bean
+
+Ex : 
+public class Alpha {
+}
+
+public class Beta {
+  public Beta() {}
+}
+
+In Alpha the default constructor is implicit; in Beta it is explicit. Both have default public constructors as per the JavaBean spec
+
+
+# DAO(data access object) is a kind of bean
