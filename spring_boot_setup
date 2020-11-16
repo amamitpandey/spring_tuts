@@ -38,3 +38,8 @@ jersey
 and run 
 
 Sample project : https://github.com/amamitpandey/SpringHelloAndDependencyI
+
+## in ubuntu 
+install intellji CE via terminal 
+install openjdk 1.8
+install maven : sudo apt-get install maven
