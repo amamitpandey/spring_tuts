@@ -1,3 +1,7 @@
+# openfeign/feign use for calling api -> spring-cloud-starter-openfeign
+# Adding a folder or project in same place in intellj
+File-> new -> import exiting project -> maven(external)
+# devtools use for hotload, normal restart time 9 sec but hotload time could be 2 sec
 # beans is same as model, auto generate json response 
 # dispatcherServlet  is responsible  for search controller and revert back
 # dow is equivalent as repo like interaction with data base
