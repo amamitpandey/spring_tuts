@@ -1,12 +1,12 @@
 ## in mac 
 
-//Install apache maven using brew
+$ install apache maven using brew
 
 $ brew install maven
 
 $ mvn —version
 
-//Install spring boot cli
+## install spring boot cli
 
 $ brew tap pivotal/tap
 
@@ -26,7 +26,7 @@ JPA,
 jersey
 
 
-# and Intijj idea
+## and Intijj idea
 use spoot boot cli 
 or 
 web(https://start.spring.io/) download and open pom.xml file as a project
