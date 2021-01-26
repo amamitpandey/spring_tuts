@@ -1,14 +1,16 @@
-Validate name and DOB
+# Validate name and DOB
 
-# for 2.3+, we need to add in pom.xml
+## for 2.3+, we need to add in pom.xml
+```
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
     
-       
-# in controller 
+```   
+## in controller 
+```
 
     @PostMapping("/saveUser")
     public ResponseEntity<Object> saveUser(@Valid @RequestBody userModel arrayNew) {
@@ -30,8 +32,9 @@ Validate name and DOB
 
         return new ResponseEntity(responseBody, responseHeaders, HttpStatus.CREATED);
     }
-    
-# create a class
+``` 
+## create a class
+```
  @ResponseStatus(HttpStatus.NOT_FOUND)
 public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException(String s) {
@@ -39,16 +42,18 @@ public class UserNotFoundException extends RuntimeException {
     }
 
 }
+```
+## create model
 
-# create model
+```
 
 public class userModel {
 
 
     public int id;
-    --> @Size(min = 2, message = "Name should be atleast two character")
+    @Size(min = 2, message = "Name should be atleast two character")
     private String name;
-    --> @Past(message = "DOB must be past date")
+    @Past(message = "DOB must be past date")
     private Date dob;
 
     public userModel(int id, String name, Date dob) {
@@ -90,9 +95,10 @@ public class userModel {
                 '}';
     }
 }
+```
 
-# in customizeHandler
-
+## in customizeHandler
+```
 @RestController
 @ControllerAdvice
 public class customizeExceptionHandler extends ResponseEntityExceptionHandler {
@@ -104,5 +110,5 @@ public class customizeExceptionHandler extends ResponseEntityExceptionHandler {
     }
 }
 
-
+```
 
