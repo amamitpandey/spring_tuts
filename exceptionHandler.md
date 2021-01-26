@@ -13,15 +13,18 @@ userModel addedUser = repo.saveUserData(arrayNew);
 ```
 ## to implement default error/exception handler :
 
-in controller 
+**in controller**
+``` 
 
 if(repo.findUser(id)==null){
             throw new UserNotFoundException("There is no user for " + id + " id");
   }
-  
-create a class UserNotFoundException
+```
 
-in class 
+## create a class UserNotFoundException
+
+**in class**
+```
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class UserNotFoundException extends RuntimeException {
@@ -30,11 +33,13 @@ public class UserNotFoundException extends RuntimeException {
     }
 
 }
+```
 
-# creating a customized error handler
+## creating a customized error handler
 
 create a model 
 
+```
 public class exceptionModel {
     private Date date;
     private String message;
@@ -87,8 +92,10 @@ public class exceptionModel {
     }
 }
 
+```
 
-create specific exception class
+**create specific exception class**
+```
 
 create a class UserNotFoundException
 
@@ -99,9 +106,11 @@ public class UserNotFoundException extends RuntimeException {
     }
 
 }
+```
 
-create customize exception handle for all controller
+**create customize exception handle for all controller**
 
+```
 @RestController
 @ControllerAdvice
 public class customizeExceptionHandler extends ResponseEntityExceptionHandler {
@@ -113,8 +122,9 @@ public class customizeExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity(excectionRes, HttpStatus.NOT_FOUND);
     }
 }
-
-# authentication using header like login
+```
+## authentication using header like login
+```
     @GetMapping("/authUser")
     public String authUser(@RequestHeader String customUid, @RequestHeader String emailId) {
 
@@ -126,8 +136,11 @@ public class customizeExceptionHandler extends ResponseEntityExceptionHandler {
         }
     }
     
-    
-# using this we return path in header
+ ``` 
+  
+## using this we return path in header
+
+```
         URI uriLocation = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -141,4 +154,8 @@ public class customizeExceptionHandler extends ResponseEntityExceptionHandler {
         ResponseModel responseBody = new ResponseModel("success", "Registered successfully", addedUser);
 
         return new ResponseEntity(responseBody, responseHeaders, HttpStatus.CREATED);
+        
+ ```
+ 
+ 
 
