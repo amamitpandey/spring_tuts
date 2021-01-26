@@ -1,6 +1,6 @@
 
-# Return path in header
-
+## Return path in header
+```
 userModel addedUser = repo.saveUserData(arrayNew);
         URI uriLocation = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -10,8 +10,8 @@ userModel addedUser = repo.saveUserData(arrayNew);
         return ResponseEntity.created(uriLocation).build();
         
         
-
-# to implement default error/exception handler :
+```
+## to implement default error/exception handler :
 
 in controller 
 
