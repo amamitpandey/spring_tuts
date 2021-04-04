@@ -1,4 +1,4 @@
-# got to project dir
+# go to project dir
 ```
 gradle clean build
 
