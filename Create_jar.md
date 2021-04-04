@@ -64,6 +64,12 @@ jar {
 
 ```
 
-# get your 
+# get your in build/libs
 
+# create jar file in eclipse
+
+run configuration -> search gradle -> new file icon -> add task -> type "build"
+-> apply -> done
+
+// https://www.journaldev.com/8118/gradle-eclipse-plugin-tutorial
 
