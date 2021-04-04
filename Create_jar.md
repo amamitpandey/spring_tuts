@@ -8,6 +8,9 @@ gradle build
 
 ```
 
+# for excute jar file in project dir
+$ java -jar build/libs/customItemWriter-0.0.1-am.jar
+
 # in build.gradle
 
 ```
@@ -60,5 +63,7 @@ jar {
 }
 
 ```
+
+# get your 
 
 
