@@ -1,4 +1,4 @@
-# Contract Test
+# Contract and Integration Testing
 ```
 package com.example.demo;
 
@@ -104,6 +104,7 @@ public class Order {
 
 }
 ```
+## In build.gradle 
 ```
 buildscript {
 	repositories {
@@ -163,4 +164,117 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
+```
+## in test package folder
+### for contract test
+```
+package com.example.demo;
+
+import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import org.junit.jupiter.api.BeforeEach;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+
+// this class needed for call application Context and add config
+// even we need to add some integration and initilize using RestAssured
+@SpringBootTest
+public abstract class ContractBaseClass {
+    @Autowired
+    OrderController orderController;
+
+    @MockBean
+    OrderService orderService;
+
+    @BeforeEach
+    public void setup() {
+        RestAssuredMockMvc.standaloneSetup(orderController);
+
+        Mockito.when(orderService.getOrder("1"))
+                .thenReturn(OrderService.orders.get("1"));
+    }
+}
+```
+### for integartion test
+```
+package com.example.demo;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+// this class needed for call whole application Context and add config
+@SpringBootTest(
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+        classes = DemoApplication.class
+)
+@AutoConfigureMockMvc
+@ActiveProfiles("test")
+public  class IntegrationBaseClass {
+//    @Autowired
+//    OrderController orderController;
+    @Autowired
+    MockMvc mockMvc;
+
+//    @MockBean
+//    OrderService orderService;
+
+    @Test
+    @DisplayName("IntegrationTestForOrder test")
+    public void IntegrationTestForOrder() {
+        try {
+            MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/orders/1")
+                    )
+                    .andExpect(status().isOk())
+                    .andReturn();
+            String res = result.getResponse().getContentAsString();
+            String ExpectedRes = "{\"orderId\":\"1\",\"itemName\":\"Sony TV\",\"price\":500.0,\"units\":1}";
+            JSONAssert.assertEquals(res,ExpectedRes,true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+```
+## in test/resources/contracts dir for integartion test
+### in order_for_client.groovy
+```
+package contracts
+
+import org.springframework.cloud.contract.spec.Contract
+
+Contract.make {
+
+    description "should return order by id=1"
+
+    request {
+        url "/orders/1"
+        method GET()
+    }
+
+    response {
+        status 200
+        headers {
+            contentType applicationJson()
+        }
+        body(
+                "orderId": 1,
+                "itemName": "Sony TV",
+                "price": 500.0,
+                "units": 1
+        )
+    }
+}
 ```
