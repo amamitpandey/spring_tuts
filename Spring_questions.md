@@ -1,44 +1,5 @@
-Interview questions:
 InterView questions :
-
-# Using int Instead Of String: 
-public static void main (int[] args) : at starting jvm only accept String[]. If try than give - "please define the main method as: public static void main(String[] args)”
-
-Alternative we can define another main :
-
-public class IntArgsTest { 
-public static void main(int[] args) { IntArgsTest iat = new IntArgsTest(args); } 
-public IntArgsTest(int[] n) { System.out.println(n[0]); }; 
-
-public static void main(String[] args) { int[] intArgs = new int[args.length]; for (int i : intArgs) { try { intArgs[i] = Integer.parseInt(args[i]); } catch (NumberFormatException e) { System.err.println("Failed trying to parse a non-numeric argument, " + args[i]); } } main(intArgs); } }
-
-# Can a constructor be made final, abstract in Java? 
-No, a constructor can’t be made final. A final method cannot be overridden by any subclasses.
-# Can a constructor be made private in Java? 
-Yes, to prevent use in subclass, can’t create instant from outsider class, use in design singleton pattern. 
-# Type of polymorphism :
-Overloading : method name will same but params will differ, if there is any mistake it’s give run time error.
-Overriding : method signature, name, parameter will same, it can be overwritten. Give compile time error.   
-
-# Loose coupling :
-
- In simple words, loose coupling means they are mostly independent. If the only knowledge that class A has about class B, is what class B has exposed through its interface, then class A and class B are said to be loosely coupled. ... The examples of Loose coupling are Interface,DI
-
-# Difference between Inversion of Control & Dependency Injection
-
-These are patterns to achieve loose coupling in java programming
-
-DI(Dependency Injection):
-Dependency injection is a pattern used to create instances of objects that other objects rely upon without knowing at compile time which class will be used to provide that functionality or simply the way of injecting properties to an object is called dependency injection.
-
-We have three types of Dependency injection
-
-Constructor Injection
-Setter/Getter Injection
-Interface Injection
-Spring will support only Constructor Injection and Setter/Getter Injection.
-
-IOC(Inversion Of Control):
+### IOC(Inversion Of Control):
 Giving control to the container to create and inject instances of objects that your application depend upon, means instead of you are creating an object using the new operator, let the container do that for you. Inversion of control relies on dependency injection because a mechanism is needed in order to activate the components providing the specific functionality
 
 The two concepts work together in this way to allow for much more flexible, reusable, and encapsulated code to be written. As such, they are important concepts in designing object-oriented solutions.
@@ -46,7 +7,7 @@ The two concepts work together in this way to allow for much more flexible, reus
 Example for Dependency injection
 
 Previously we are writing code like this
-
+```
 Public MyClass{
  DependentClass dependentObject
  /*
@@ -56,7 +17,8 @@ Public MyClass{
   dependentObject= new DependentClass();
   dependentObject.someMethod();
 }
-With Dependency injection, the dependency injector will take off the instantiation for us
+
+//With Dependency injection, the dependency injector will take off the instantiation for us
 
 Public MyClass{
  /* Dependency injector will instantiate object*/
@@ -69,6 +31,8 @@ Public MyClass{
 
   dependentObject.someMethod();
 }
+```
+
 The above process of giving the control to some other (for example the container) for the instantiation and injection can be termed as Inversion of Control
 
 You can read more on dependency injection and IOC in my answer :- You can find advantages and applications of the concepts here.
