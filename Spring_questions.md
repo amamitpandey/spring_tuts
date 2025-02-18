@@ -61,13 +61,7 @@ Can you compare Bean Factory with Application Context?
 
 BeanFactory and ApplicationContext both are Java interfaces and ApplicationContext extends BeanFactory. Both of them are configuration using XML configuration files. In short BeanFactory provides basic Inversion of control(IoC) and Dependency Injection (DI) features while ApplicationContext provides advanced features.
 
-# get nth salary
-## for all db
-SELECT name, salary from #Employee_table e1 WHERE n-1 = ( SELECT COUNT( DISTINCT salary FROM #Employee_table e2 WHERE e2.salary < e1.salary ))
-## for mysql
-SELECT salary from tbl_name ORDER BY salary DESC LIMIT BY n-1, 1
-
-# What’s the difference Between @Controller, @Component, @Repository, @SpringBootApplication and @Service Annotations in Spring?
+## What’s the difference Between @Controller, @Component, @Repository, @SpringBootApplication and @Service Annotations in Spring?
 @component : use in bean, model for easy to use, using @Autowire.
 @controller : behave as a logic controller build for normal html, js whether @RestController by default return xml/json response.
 @Repository : use with JPA interface for gather info form db, a persistence layer of connection 
@@ -77,29 +71,6 @@ SELECT salary from tbl_name ORDER BY salary DESC LIMIT BY n-1, 1
 @ComponentScan to enable component scanning.
 @EnableAutoConfiguration to enable Spring Boot's auto-configuration feature.
 
-# how HashMap works internally
-hashMap based on node
-
-
-node
-key
-value
-next()
-
-
-There are three method available
-equals(): compare key if found then replace otherwise replace
-hashcode() : return a reference/address/Integer where element is inserted.
-buckets(): node of array.
-
-Steps for insertion/replacement:
-Get index by using formula = hashcodeKey && (n-1)
-Use an equal method for compare key and index if not found insert otherwise replace. 
-If index is same but key is different than map with internal key
-
-Steps for retrieve data:
-Get the index, if key found in that index return value
-In index, value is not found then search for next(use next fn) and return value.   
 
 How do you create an application context with Spring?
 How do you define a component scan in XML and Java Configurations?
