@@ -71,6 +71,56 @@ BeanFactory and ApplicationContext both are Java interfaces and ApplicationConte
 @ComponentScan to enable component scanning.
 @EnableAutoConfiguration to enable Spring Boot's auto-configuration feature.
 
+## What is @Primary and @Qualifier?
+if you have two beans with same interface, then these anotation decide which will get more prefrence.
+@qualifier will get more value. 
+@Primary indicates that a bean should be given preference when multiple candidates are qualified to autowire a single-valued dependency.
+
+@Qualifier indicates specific bean should be autowired when there are multiple candidates.
+```
+public interface BeanInterface {
+
+    String getName();
+}
+
+
+public class Bean1 implements BeanInterface {
+    @Override
+    public String getName() {
+        return "bean 1";
+    }
+}
+
+
+public class Bean2 implements BeanInterface {
+    @Override
+    public String getName() {
+        return "bean2";
+    }
+}
+
+// Here is our service.
+
+@Service
+public class BeanService {
+
+    @Autowired
+    private BeanInterface bean; // it'll get error by say you havemore then one bean
+}
+
+```
+
+```
+// solution
+
+@Bean("bean1")
+@Primary
+public BeanInterface bean1() {
+    return new Bean1();
+}
+```
+
+
 
 How do you create an application context with Spring?
 How do you define a component scan in XML and Java Configurations?
@@ -89,8 +139,6 @@ What are the different kinds of matching used by Spring for Autowiring?
 How do you debug problems with Spring Framework?
 How do you solve NoUniqueBeanDefinitionException?
 How do you solve NoSuchBeanDefinitionException?
-What is @Primary?
-What is @Qualifier?
 What is CDI (Contexts and Dependency Injection)?
 Does Spring Support CDI?
 Would you recommed to use CDI or Spring Annotations?
