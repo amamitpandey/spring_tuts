@@ -1,4 +1,11 @@
 InterView questions :
+### Benefit of using spring boot:
+* auto config like start config
+* auto embeded server
+* DB is added like H2
+* Dev tool is enabled for quick running
+* Actutor is available for monitoring purpose like health check
+  
 ### IOC(Inversion Of Control):
 Giving control to the container to create and inject instances of objects that your application depend upon, means instead of you are creating an object using the new operator, let the container do that for you. Inversion of control relies on dependency injection because a mechanism is needed in order to activate the components providing the specific functionality
 
