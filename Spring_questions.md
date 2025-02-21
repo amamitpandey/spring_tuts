@@ -42,6 +42,14 @@ Public MyClass{
 
 The above process of giving the control to some other (for example the container) for the instantiation and injection can be termed as Inversion of Control
 
+Type of Dependency Injection.
+
+Constructor injection: This is the most common type of DI in Spring Boot. In constructor injection, the dependency object is injected into the dependent object’s constructor.
+
+Setter injection: In setter injection, the dependency object is injected into the dependent object’s setter method
+
+Field injection : In field injection, the dependency object is injected into the dependent object’s field.
+
 You can read more on dependency injection and IOC in my answer :- You can find advantages and applications of the concepts here.
 
 # Can you give few examples of Dependency Injection?
@@ -126,6 +134,9 @@ public BeanInterface bean1() {
     return new Bean1();
 }
 ```
+
+### Application context:
+it handleer all kind or bean context at time creation, deletion.
 
 
 
