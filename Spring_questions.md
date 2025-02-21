@@ -73,10 +73,10 @@ BeanFactory and ApplicationContext both are Java interfaces and ApplicationConte
 @controller : behave as a logic controller build for normal html, js whether @RestController by default return xml/json response.
 @Repository : use with JPA interface for gather info form db, a persistence layer of connection 
 @service :  a persistence layer of service 
-@SpringBootApplication : 
-@Configuration to enable Java-based configuration
-@ComponentScan to enable component scanning.
-@EnableAutoConfiguration to enable Spring Boot's auto-configuration feature.
+### @SpringBootApplication : 
+@Configuration to enable Java-based configuration like bean and package
+@ComponentScan to enable component scanning like services, repository.
+@EnableAutoConfiguration to enable Spring Boot's auto-configuration featurelikr dependency and libraries.
 
 ## What is @Primary and @Qualifier?
 if you have two beans with same interface, then these anotation decide which will get more prefrence.
