@@ -74,13 +74,15 @@ Is just environment, scope where var method exit, can access by this keyword.
 # What are Bean Factory and Application Context?
 Can you compare Bean Factory with Application Context?
 
-BeanFactory and ApplicationContext both are Java interfaces and ApplicationContext extends BeanFactory. Both of them are configuration using XML configuration files. In short BeanFactory provides basic Inversion of control(IoC) and Dependency Injection (DI) features while ApplicationContext provides advanced features.
+# BeanFactory and ApplicationContext both are Java interfaces and ApplicationContext extends BeanFactory. Both of them are configuration using XML configuration files. 
+In short BeanFactory provides basic Inversion of control(IoC) and Dependency Injection (DI) features while ApplicationContext provides advanced features.
 
 ## What’s the difference Between @Controller, @Component, @Repository, @SpringBootApplication and @Service Annotations in Spring?
 @component : it's bean, it's for general purpose, either we can use as repository, service or as mmodel for easy to use.
 @controller : behave as a logic controller build for normal html, js whether @RestController by default return xml/json response.
 @Repository : use with JPA interface for gather info form db, a persistence layer of connection 
 @service :  Serice layer is use for write busineess logic, it's specific for bussiness logic purpose, we are getting more option like @transaction etc, more readble.   
+
 ### @SpringBootApplication : 
 @Configuration to enable Java-based configuration like bean and package
 @ComponentScan to enable component scanning like services, repository.
@@ -138,12 +140,17 @@ public BeanInterface bean1() {
 ### Application context:
 it handleer all kind or bean context at time creation, deletion.
 
+## Can you explain a simple flow in Spring MVC?
+just explain Model view and controller, spring also support frontend and backend part 
+
+## What is the default scope of a bean?
+singleton is first and default, after that we have prototype, request(HTTP), session(HTTP), and application(HTTP) scopes
+
 
 
 How do you create an application context with Spring?
 How do you define a component scan in XML and Java Configurations?
 
-What is the default scope of a bean?
 Are Spring beans thread safe?
 What are the other scopes available?
 How is Spring’s singleton bean different from Gang of Four Singleton Pattern?
@@ -176,7 +183,6 @@ What is Model 1 architecture?
 What is Model 2 architecture?
 What is Model 2 Front Controller architecture?
 Can you show an example controller method in Spring MVC?
-Can you explain a simple flow in Spring MVC?
 What is a ViewResolver?
 What is Model?
 What is ModelAndView?
