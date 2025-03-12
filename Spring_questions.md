@@ -77,14 +77,14 @@ Can you compare Bean Factory with Application Context?
 BeanFactory and ApplicationContext both are Java interfaces and ApplicationContext extends BeanFactory. Both of them are configuration using XML configuration files. In short BeanFactory provides basic Inversion of control(IoC) and Dependency Injection (DI) features while ApplicationContext provides advanced features.
 
 ## What’s the difference Between @Controller, @Component, @Repository, @SpringBootApplication and @Service Annotations in Spring?
-@component : use in bean, model for easy to use, using @Autowire.
+@component : it's bean, it's for general purpose, either we can use as repository, service or as mmodel for easy to use.
 @controller : behave as a logic controller build for normal html, js whether @RestController by default return xml/json response.
 @Repository : use with JPA interface for gather info form db, a persistence layer of connection 
-@service :  a persistence layer of service 
+@service :  Serice layer is use for write busineess logic, it's specific for bussiness logic purpose, we are getting more option like @transaction etc, more readble.   
 ### @SpringBootApplication : 
 @Configuration to enable Java-based configuration like bean and package
 @ComponentScan to enable component scanning like services, repository.
-@EnableAutoConfiguration to enable Spring Boot's auto-configuration featurelikr dependency and libraries.
+@EnableAutoConfiguration to enable Spring Boot's auto-configuration feature like dependency and libraries.
 
 ## What is @Primary and @Qualifier?
 if you have two beans with same interface, then these anotation decide which will get more prefrence.
