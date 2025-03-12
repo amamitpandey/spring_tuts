@@ -146,6 +146,12 @@ just explain Model view and controller, spring also support frontend and backend
 ## What is the default scope of a bean?
 singleton is first and default, after that we have prototype, request(HTTP), session(HTTP), and application(HTTP) scopes
 
+## @mockbean vs @mock
+1. mockbean is part of spring framework used with @springboottest while mock is part of mockito framework used with @RunWith(MokitoRunner)
+2. Mockbean intract with spring context but mock interat with java obj
+3. both use for mocking/isolate of components, repository, services
+4. mock used for only unit Test case while mockbean used for unit and integration testcase. 
+
 
 
 How do you create an application context with Spring?
